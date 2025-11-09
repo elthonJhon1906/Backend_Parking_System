@@ -1,6 +1,6 @@
 var DataTypes = require("sequelize").DataTypes;
 var _flame_sensor = require("./flame_sensor");
-var _mq2_copy1 = require("./mq2_copy1");
+var _mq2 = require("./mq2");
 var _rfid_in = require("./rfid_in");
 var _rfid_out = require("./rfid_out");
 var _transactions = require("./transactions");
@@ -14,7 +14,7 @@ var _users = require("./users");
 
 function initModels(sequelize) {
   var flame_sensor = _flame_sensor(sequelize, DataTypes);
-  var mq2_copy1 = _mq2_copy1(sequelize, DataTypes);
+  var mq2 = _mq2(sequelize, DataTypes);
   var rfid_in = _rfid_in(sequelize, DataTypes);
   var rfid_out = _rfid_out(sequelize, DataTypes);
   var transactions = _transactions(sequelize, DataTypes);
@@ -35,7 +35,7 @@ function initModels(sequelize) {
 
   return {
     flame_sensor,
-    mq2_copy1,
+    mq2,
     rfid_in,
     rfid_out,
     transactions,
