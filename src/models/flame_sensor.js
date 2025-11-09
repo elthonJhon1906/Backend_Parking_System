@@ -19,6 +19,8 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'flame_sensor',
     timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: false,
     indexes: [
       {
         name: "PRIMARY",

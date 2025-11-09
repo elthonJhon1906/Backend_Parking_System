@@ -1,5 +1,4 @@
 const express = require('express');
-const flameController = require('../controllers/flame_sensor.js');
 const flame_sensorController = require('../controllers/flame_sensor.js');
 const router = express.Router();
 
