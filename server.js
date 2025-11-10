@@ -10,6 +10,7 @@ const flame_sensorRoutes = require('./src/routes/flame_sensor.js');
 const authRoutes = require('./src/routes/authRoutes.js');
 const transactionRoutes = require('./src/routes/transactions.js');
 const rfidRoutes = require('./src/routes/rfid_routes.js');
+const usersRoutes = require('./src/routes/users.js');
 // const userRoutes = require('./routes/userRoutes');
 
 const app = express();
@@ -28,8 +29,8 @@ app.use('/api/mq2', mq2Routes);
 app.use('/api/flame_sensor', flame_sensorRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/transaction', transactionRoutes);
-app.use('/api/', rfidRoutes);
-
+app.use('/api', rfidRoutes);
+app.use('/api', usersRoutes);
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
