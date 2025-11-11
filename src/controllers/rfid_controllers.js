@@ -1,12 +1,13 @@
-const rfidService = require('../services/rfid_services.js');
+// controllers/rfidController.js
+const rfidService = require('../services/rfidService');
 
 const rfidController = {
   // Endpoint untuk membuat rfid_in
   createRfidIn: async (req, res) => {
-    const { userId } = req.params;
+    const { rfidUid } = req.body; // Ambil rfid_uid dari request body
 
     try {
-      const rfidIn = await rfidService.createRfidIn(userId);
+      const rfidIn = await rfidService.createRfidIn(rfidUid);
       return res.status(201).json({
         message: 'rfid_in created successfully',
         rfid_in: rfidIn
@@ -19,10 +20,10 @@ const rfidController = {
 
   // Endpoint untuk membuat rfid_out
   createRfidOut: async (req, res) => {
-    const { userId } = req.params;
+    const { rfidUid } = req.body; // Ambil rfid_uid dari request body
 
     try {
-      const rfidOut = await rfidService.createRfidOut(userId);
+      const rfidOut = await rfidService.createRfidOut(rfidUid);
       return res.status(201).json({
         message: 'rfid_out created successfully',
         rfid_out: rfidOut

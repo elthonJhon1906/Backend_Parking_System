@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');  // Import library cors
 const ultrasonic1Routes = require('./src/routes/ultrasonic1.js');
 const ultrasonic2Routes = require('./src/routes/ultrasonic2.js');
 const ultrasonic3Routes = require('./src/routes/ultrasonic3.js');
@@ -16,6 +17,7 @@ const usersRoutes = require('./src/routes/users.js');
 const app = express();
 app.use(express.json());
 require('dotenv').config();
+app.use(cors());
 
 // app.use('/users', userRoutes);
 

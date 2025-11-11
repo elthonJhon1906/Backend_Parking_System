@@ -28,27 +28,7 @@ const usersController = {
     }
   },
 
-  createUsers: async (req, res) => {
-    const { value, is_active } = req.body;
 
-    if (value == null || is_active == null) {
-      return res.status(400).json({
-        message: 'Both value and is_active fields are required.'
-      });
-    }
-
-    try {
-
-      const newUsers = await usersService.createUsers({
-        value,
-        is_active
-      });
-
-      return res.status(201).json(newUsers);  // Mengembalikan data yang baru dibuat
-    } catch (error) {
-      return res.status(500).json({ message: 'Failed to create users data', error: error.message });
-    }
-  }
 };
 
 module.exports = usersController;

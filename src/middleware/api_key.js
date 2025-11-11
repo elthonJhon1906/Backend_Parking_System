@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const VALID_API_KEY = process.env.API_KEY;
+const VALID_API_KEY = "Christo";
 
 const authenticateApiKey = (req, res, next) => {
   const apiKey = req.headers['x-api-key'];

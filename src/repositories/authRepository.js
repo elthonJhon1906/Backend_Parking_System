@@ -1,3 +1,4 @@
+// repositories/authRepository.js
 const { users } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -38,6 +39,19 @@ const createUser = async (userData) => {
   }
 };
 
+// Fungsi untuk memperbarui rfid_uid
+const updateRfidUid = async (userId, rfidUid) => {
+  try {
+    return await users.update(
+      { rfid_uid: rfidUid },
+      { where: { id: userId } }
+    );
+  } catch (error) {
+    console.error('Error in updateRfidUid:', error);
+    throw new Error('Error updating rfid_uid');
+  }
+};
+
 // Fungsi untuk verifikasi password
 const verifyPassword = async (inputPassword, hashedPassword) => {
   try {
@@ -51,7 +65,7 @@ const verifyPassword = async (inputPassword, hashedPassword) => {
 // Fungsi untuk membuat JWT
 const generateJwt = (userId, username, role) => {
   try {
-    return jwt.sign({ id: userId, username, role}, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ id: userId, username, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
   } catch (error) {
     console.error('Error in generateJwt:', error);
     throw new Error('Error generating JWT');
@@ -62,5 +76,6 @@ module.exports = {
   findUserByUsername,
   createUser,
   verifyPassword,
-  generateJwt
+  generateJwt,
+  updateRfidUid  // Menambahkan fungsi ini
 };

@@ -3,7 +3,7 @@ const { sequelize } = require('../models');
 
 // Register user baru
 const register = async (req, res) => {
-  const { name, username, password, credit, citizen_id, role } = req.body;  // Pastikan ada role
+  const { name, username, password, credit, citizen_id, role } = req.body;
 
   try {
     // Cek apakah user sudah ada
@@ -15,11 +15,43 @@ const register = async (req, res) => {
     // Default role ke 'member' jika tidak ada role yang diberikan
     const userRole = role || 'member';
 
+    // Hash password
+    const hashedPassword = await authRepository.hashPassword(password);
+
     // Buat user baru
-    const newUser = await authRepository.createUser({ name, username, password, credit, citizen_id, role: userRole });
+    const newUser = await authRepository.createUser({
+      name,
+      username,
+      password: hashedPassword,
+      credit,
+      citizen_id,
+      role: userRole
+    });
+
+    // Return user yang baru dibuat
     return res.status(201).json({ message: 'User registered successfully', user: newUser });
   } catch (error) {
     console.error('Error in register:', error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
+
+// Update rfid_uid user
+const updateRfidUid = async (req, res) => {
+  const { userId, rfidUid } = req.body; // userId dan rfidUid diambil dari body
+
+  try {
+    // Cek apakah user ada
+    const user = await authRepository.findUserByUsername(userId); // Menggunakan userId untuk mencari
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update rfid_uid
+    await authRepository.updateRfidUid(userId, rfidUid);
+    return res.status(200).json({ message: 'rfid_uid updated successfully' });
+  } catch (error) {
+    console.error('Error in updateRfidUid:', error);
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
@@ -90,4 +122,4 @@ const getRfidData = async (req, res) => {
   }
 };
 
-module.exports = { register, login, updateCredit, getRfidData };
+module.exports = { register, login, updateCredit, getRfidData, updateRfidUid };
